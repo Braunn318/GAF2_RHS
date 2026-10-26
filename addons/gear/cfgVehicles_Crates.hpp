@@ -102,7 +102,7 @@ class BWA3_Box_Gear_Tropen;
 };
 class TransportWeapons {
     WEAP_XX(GAF2_G27_C_Blk,5);
-    WEAP_XX(GAF2_G27_AG36,2);
+    WEAP_XX(GAF2_G27_AG36_Blk,2);
     WEAP_XX(GAF2_G28_DMR,5);
     WEAP_XX(BWA3_G29_bipod,2);
     WEAP_XX(GAF2_G82_BLK,1);
