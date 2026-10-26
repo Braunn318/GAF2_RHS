@@ -204,11 +204,11 @@ class TransportItems {
      scopecurator=2;
       editorSubcategory = "MySupplies";
       class TransportBackpacks {
-          ITEM_XX(gaf2_AssaultPack_flk,2);
-          ITEM_XX(gaf2_Kitbag_flk,4);
-          ITEM_XX(gaf2_TacticalPack_flk,4);
+          BAG_XX(gaf2_AssaultPack_flk,2);
+          BAG_XX(gaf2_Kitbag_flk,4);
+          BAG_XX(gaf2_TacticalPack_flk,4);
 //        ITEM_XX(BWA3_FieldPack_Fleck,2);
-          ITEM_XX(gaf2_Carryall_flk,2);
+          BAG_XX(gaf2_Carryall_flk,2);
 //        ITEM_XX(BWA3_PatrolPack_Fleck,2);
       };
       class TransportWeapons {};
@@ -249,11 +249,11 @@ class TransportItems {
      scopecurator=2;
         editorSubcategory = "MySupplies";
       class TransportBackpacks {
-          ITEM_XX(gaf2_AssaultPack_trp,2);
-          ITEM_XX(gaf2_Kitbag_trp,4);
-          ITEM_XX(gaf2_TacticalPack_trp,4);
+          BAG_XX(gaf2_AssaultPack_trp,2);
+          BAG_XX(gaf2_Kitbag_trp,4);
+          BAG_XX(gaf2_TacticalPack_trp,4);
 //        ITEM_XX(BWA3_FieldPack_Tropen,2);
-          ITEM_XX(gaf2_Carryall_trp,2);
+          BAG_XX(gaf2_Carryall_trp,2);
 //        ITEM_XX(BWA3_PatrolPack_Tropen,2);
       };
       class TransportWeapons {};
@@ -297,11 +297,11 @@ class TransportItems {
      scopecurator=2;
       editorSubcategory = "MySupplies";
       class TransportBackpacks {
-          ITEM_XX(gaf2_AssaultPack_mlt,2);
-          ITEM_XX(gaf2_Kitbag_mlt,4);
-          ITEM_XX(gaf2_TacticalPack_mlt,4);
+          BAG_XX(gaf2_AssaultPack_mlt,2);
+          BAG_XX(gaf2_Kitbag_mlt,4);
+          BAG_XX(gaf2_TacticalPack_mlt,4);
 //        ITEM_XX(BWA3_FieldPack_Fleck,2);
-          ITEM_XX(gaf2_Carryall_mlt,2);
+          BAG_XX(gaf2_Carryall_mlt,2);
 //        ITEM_XX(BWA3_PatrolPack_Fleck,2);
       };
       class TransportWeapons {};

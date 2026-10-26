@@ -52,6 +52,7 @@ QUOTE(ItemWatch) \
 #define MAG_XX(a,b) class _xx_##a {magazine = #a; count = b;}
 #define WEAP_XX(a,b) class _xx_##a {weapon = #a; count = b;}
 #define ITEM_XX(a,b) class _xx_##a {name = #a; count = b;}
+#define BAG_XX(a,b) class _xx_##a {backpack = #a; count = b;} // for TransportBackpacks (needs "backpack", not "name")
 /*
 #define SMAG_1(smag) { QUOTE(smag) }
 #define SMAG_2(smag) { QUOTE(smag), QUOTE(smag) }
