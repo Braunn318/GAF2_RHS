@@ -27,7 +27,10 @@
   -Gunners    Top-level turret class names that get a GAF2 gunner (see Inspect-Mod "Turrets").
               "Name" uses -GunnerRole, "Name=Role" sets the role for that seat.
   -GunnerRole Default role for -Gunners. Defaults: Helicopters Heli_Crew, Cars MachineGunner_MG5, others Crew
-  -Cargo      Jet | Heli | Transport | None  (inventory presets from def_const/def_camo)
+  -ParentClassDesert  Source class with the desert paint (e.g. Hawks_GTK_Boxer_HMG_Sand). Then flk uses
+              -ParentClass and mlt/trp use this one (same split as addons\armored: Fleck / Tropen).
+  -TexturesDesert     hiddenSelectionsTextures[] for the desert base (only with -ParentClassDesert).
+  -Cargo      Jet | Heli | Transport | Armor | None  (inventory presets from def_const/def_camo)
   -Sides      Any of B, I, O (default all three)
   -Textures   hiddenSelectionsTextures[]; leave out to keep the source mod's default textures.
               Paths starting with "data\" are made relative to the new addon (your own .paa files).
@@ -37,18 +40,21 @@ param(
     [Parameter(Mandatory)][string]$Key,
     [Parameter(Mandatory)][string]$DisplayName,
     [Parameter(Mandatory)][string]$ParentClass,
+    [string]$ParentClassDesert,
+    [string[]]$TexturesDesert,
     [string[]]$RequiredAddons = @(),
     [string]$Category = 'Planes',
     [string]$Crew,
     [string]$CargoRole,
     [string[]]$Gunners = @(),
     [string]$GunnerRole,
-    [ValidateSet('Jet', 'Heli', 'Transport', 'None')][string]$Cargo,
+    [ValidateSet('Jet', 'Heli', 'Transport', 'Armor', 'None')][string]$Cargo,
     [string[]]$Textures,
     [string]$TextureSource,
     [string]$EditorPreview,
     [ValidateSet('B', 'I', 'O')][string[]]$Sides = @('B', 'I', 'O'),
     [switch]$Append,
+    [switch]$ResetEditorCategory,   # force editorCategory = "" (auto-detected from the inspector cache)
     [string]$RepoRoot
 )
 $ErrorActionPreference = 'Stop'
@@ -71,13 +77,15 @@ $isCar = $subcat -match 'Car|Boat|Truck|MyMP'
 if (-not $Crew) { $Crew = if ($isPlane) { 'Jetpilot' } elseif ($isHeli) { 'Helipilot' } elseif ($isCar) { 'Rifleman' } else { 'Crew' } }
 if (-not $CargoRole) { $CargoRole = if ($isHeli) { 'Heli_Crew' } else { $Crew } }
 if (-not $GunnerRole) { $GunnerRole = if ($isHeli) { 'Heli_Crew' } elseif ($isCar) { 'MachineGunner_MG5' } else { 'Crew' } }
-if (-not $Cargo) { $Cargo = if ($isPlane) { 'Jet' } elseif ($isHeli) { 'Heli' } else { 'Transport' } }
+if (-not $Cargo) { $Cargo = if ($isPlane) { 'Jet' } elseif ($isHeli) { 'Heli' } elseif ($isCar) { 'Transport' } else { 'Armor' } }
 $cargoMacros = @{
     Jet       = 'MAGS_TIGER,BSC_ITMS,DUMMY_WP'
     Heli      = 'MAGS_TIGER,ITMS_TIGER,TRN_SD_WEAP_HELI'
     Transport = 'TRN_SD_MAGS_TPLANE,TRN_SD_ITMS_TPLANE,TRN_SD_WEAP_HELI'
+    Armor     = 'MAGS_PUMA,ITMS_PUMA,WEAPS_PUMA'
     None      = 'EMPTY,EMPTY,EMPTY'
 }[$Cargo]
+if ($TexturesDesert -and -not $ParentClassDesert) { throw '-TexturesDesert needs -ParentClassDesert.' }
 
 # "LeftDoorGun" / "CopilotTurret=Helipilot" -> turret + role
 $seats = foreach ($g in $Gunners) {
@@ -112,77 +120,106 @@ if ($seats) {
     }
 }
 
+# A source mod that sets editorCategory (e.g. GTK Boxer: "Hawks_Vehicles") would pull our vehicles out of
+# the GAF2 faction in Eden, because editorCategory wins over faction. Reset it when the mod uses it.
+$resetCategory = [bool]$ResetEditorCategory
+if (-not $resetCategory) {
+    $cacheRoot = Join-Path $env:TEMP 'gaf2_modinspect'
+    $src = if (Test-Path $cacheRoot) { Get-ChildItem $cacheRoot -Recurse -Filter *.cpp | Select-String -Pattern "class\s+$ParentClass\s*:" -List | Select-Object -First 1 } else { $null }
+    if ($src -and (Select-String -Path $src.Path -Pattern '^\s*editorCategory\s*=' -Quiet)) {
+        $resetCategory = $true
+        Write-Host 'Source mod sets editorCategory - setting it to the GAF2 faction so the vehicles sort with the other GAF2 vehicles.' -ForegroundColor Yellow
+    }
+}
+
 $utf8 = New-Object System.Text.UTF8Encoding($false)
 function Write-File([string]$name, [string]$text) { [IO.File]::WriteAllText((Join-Path $dir $name), (($text.TrimEnd() + "`n") -replace "`r?`n", "`r`n"), $utf8) }
 function Q([string]$s) { '"' + $s + '"' }
 
-$base = "B_GAF2_${Key}_base"
 $units = foreach ($s in $Sides) { foreach ($c in 'flk', 'mlt', 'trp') { "${s}_GAF2_${Key}_$c" } }
 
-# ---------- base class (hidden; the macro derives the visible ones) ----------
-$texLines = ''
-if ($Textures) {
-    $fixed = $Textures | ForEach-Object { if ($_ -match '^data\\') { "z\gaf2\addons\$Addon\$_" } else { $_ } }
-    $texLines += "`n    hiddenSelectionsTextures[] = {$((($fixed | ForEach-Object { Q $_ }) -join ', '))};"
-}
-if ($TextureSource) { $texLines += "`n    textureList[] = {$(Q $TextureSource), 1};" }
+# ---------- base class(es) (hidden; the macro derives the visible ones) ----------
+# One paint:   B_GAF2_<Key>_base                                  -> VEHICULOFIX  (all camos)
+# Two paints:  B_GAF2_<Key>_base_Fleck / B_GAF2_<Key>_base_Tropen -> VEHICULOBWA3 (flk Fleck, mlt/trp Tropen)
+$twoPaints = [bool]$ParentClassDesert
+$basePrefix = if ($twoPaints) { "B_GAF2_${Key}_base_" } else { "B_GAF2_${Key}_base" }
 $previewLine = if ($EditorPreview) { "`n    editorPreview = $(Q $EditorPreview);" } else { '' }
 
-$baseParent = $ParentClass
-$importClass = ''
-$turretLines = ''
-if ($seats) {
-    # Same trick as cars\cfgVehicles_basicDefines.hpp (BWA3_Eagle_Import1): make the inherited
-    # Turrets class and its seats visible, so child classes can change gunnerType.
-    $baseParent = "B_GAF2_${Key}_import"
-    $importClass = @"
+function New-BaseClass([string]$parent, [string]$name, [string]$camo, [string[]]$tex, [string]$texSource) {
+    $faction = @{ flk = 'B_GAF2_FLK'; trp = 'B_GAF2_TRP' }[$camo]
+    $texLines = ''
+    if ($tex) {
+        $fixed = $tex | ForEach-Object { if ($_ -match '^data\\') { "z\gaf2\addons\$Addon\$_" } else { $_ } }
+        $texLines += "`n    hiddenSelectionsTextures[] = {$((($fixed | ForEach-Object { Q $_ }) -join ', '))};"
+    }
+    if ($texSource) { $texLines += "`n    textureList[] = {$(Q $texSource), 1};" }
+    $baseParent = $parent
+    $importClass = ''
+    $turretLines = ''
+    if ($seats) {
+        # Same trick as cars\cfgVehicles_basicDefines.hpp (BWA3_Eagle_Import1): make the inherited
+        # Turrets class and its seats visible, so child classes can change gunnerType.
+        $baseParent = "${name}_import"
+        $importClass = @"
 
 // Exposes the source vehicle's Turrets so the GAF2 versions can set their own gunners.
-class $baseParent : $ParentClass
+class $baseParent : $parent
 {
     scope = 0;
     scopeCurator = 0;
     class Turrets;
 };
 "@
-    $turretLines = "`n    class Turrets : Turrets`n    {`n" + (($seats | ForEach-Object { "        class $($_.Turret);" }) -join "`n") + "`n    };"
-}
-
-$baseClass = @"
+        $turretLines = "`n    class Turrets : Turrets`n    {`n" + (($seats | ForEach-Object { "        class $($_.Turret);" }) -join "`n") + "`n    };"
+    }
+    return @"
 $importClass
 // $DisplayName - hidden base. cfgVehicles_macrounits.hpp creates the B/I/O x flk/mlt/trp versions from it.
-class $base : $baseParent
+class $name : $baseParent
 {
     scope = 0;
     scopeCurator = 0;
     scopeArsenal = 0;
     side = 1;
-    faction = "B_GAF2_FLK";
+    faction = "$faction";
     displayName = $(Q $DisplayName);$previewLine
-    crew = "B_GAF2_${Crew}_flk";
-    typicalCargo[] = {"B_GAF2_${CargoRole}_flk"};$texLines$turretLines
+    crew = "B_GAF2_${Crew}_$camo";
+    typicalCargo[] = {"B_GAF2_${CargoRole}_$camo"};$texLines$turretLines
 };
 
 "@
-
-if ($seats) {
-    $gunnerMacro = "GAF2_GUNNERS_$Key"
-    $gunnerDefine = "#define $gunnerMacro " + (($seats | ForEach-Object { "GAF2_GUNNER($($_.Turret),$($_.Role));" }) -join ' ')
-    $macroLine = "VEHICULOFIXG($Key,$DisplayName,$Crew,$CargoRole,$subcat,$base,$cargoMacros,$gunnerMacro);"
-} else {
-    $gunnerDefine = $null
-    $macroLine = "VEHICULOFIX($Key,$DisplayName,$Crew,$CargoRole,$subcat,$base,$cargoMacros);"
 }
 
-# macros_local.hpp holds VEHICULOFIXG (VEHICULOFIX + gunners) and each vehicle's gunner list
-$localMacros = @'
-// Local macros for this compat addon (VEHICULOFIX itself lives in addons\main\macros_vehicles.hpp).
+if ($twoPaints) {
+    $baseClass = (New-BaseClass $ParentClass "${basePrefix}Fleck" 'flk' $Textures $TextureSource) +
+                 (New-BaseClass $ParentClassDesert "${basePrefix}Tropen" 'trp' $TexturesDesert $null)
+    $parentDecl = @($ParentClass, $ParentClassDesert)
+} else {
+    $baseClass = New-BaseClass $ParentClass $basePrefix 'flk' $Textures $TextureSource
+    $parentDecl = @($ParentClass)
+}
 
-// One turret seat: gunner of the current side/camo, e.g. B_GAF2_Heli_Crew_flk
-#define GAF2_GUNNER(turret,GNR) class turret: turret { gunnerType = QUOTE(SIDEPRFX##_##GNR##_##CAMO); }
+# Plain vehicle: VEHICULOFIX / VEHICULOBWA3 from addons\main.
+# With gunners and/or the faction category: VEHICULOFIXX / VEHICULOCAMOX from macros_local.hpp,
+# which take one more argument, GAF2_EXTRA_<Key> = extra lines for the class body.
+$extraParts = @()
+if ($resetCategory) { $extraParts += 'GAF2_EDCAT' }
+if ($seats) { $extraParts += 'class Turrets: Turrets { ' + (($seats | ForEach-Object { "GAF2_GUNNER($($_.Turret),$($_.Role));" }) -join ' ') + ' };' }
+if ($extraParts) {
+    $macroName = if ($twoPaints) { 'VEHICULOCAMOX' } else { 'VEHICULOFIXX' }
+    $extraMacro = "GAF2_EXTRA_$Key"
+    $extraDefine = "#define $extraMacro " + ($extraParts -join ' ')
+    $macroLine = "$macroName($Key,$DisplayName,$Crew,$CargoRole,$subcat,$basePrefix,$cargoMacros,$extraMacro);"
+} else {
+    $macroName = if ($twoPaints) { 'VEHICULOBWA3' } else { 'VEHICULOFIX' }
+    $extraDefine = $null
+    $macroLine = "$macroName($Key,$DisplayName,$Crew,$CargoRole,$subcat,$basePrefix,$cargoMacros);"
+}
 
-// VEHICULOFIX + gunners. TURRETS is a GAF2_GUNNERS_<Key> macro defined below.
-#define VEHICULOFIXG(role, roleDisplayName, CRW, TCGO, EditorCat, baseclass, TRANSMAG, TRANSITM, TRANSWEAP, TURRETS) \
+# macros_local.hpp: VEHICULOFIXX / VEHICULOCAMOX (+ extra lines) and each vehicle's GAF2_EXTRA_<Key>
+$xMacros = @'
+// VEHICULOFIX / VEHICULOBWA3 + EXTRA (gunners, Eden category ...). EXTRA is a GAF2_EXTRA_<Key> macro below.
+#define VEHICULOFIXX(role, roleDisplayName, CRW, TCGO, EditorCat, baseclass, TRANSMAG, TRANSITM, TRANSWEAP, EXTRA) \
 class SIDEPRFX##_##role##_##CAMO: baseclass { \
 		faction=QUOTE(SIDEPRFX##_##CAMO); \
 		side= SIDE_TAG; \
@@ -195,13 +232,42 @@ class SIDEPRFX##_##role##_##CAMO: baseclass { \
 		class TransportMagazines{TRANSMAG}; \
 		class TransportItems{TRANSITM}; \
 		class TransportWeapons{TRANSWEAP}; \
-		class Turrets: Turrets { TURRETS }; \
+		EXTRA \
 }
 
-// Gunner seats per vehicle: GAF2_GUNNER(turretClass,role);
+// Same, parent is baseclass##BWA_CAMO (B_GAF2_<Key>_base_Fleck / _Tropen).
+#define VEHICULOCAMOX(role, roleDisplayName, CRW, TCGO, EditorCat, baseclass, TRANSMAG, TRANSITM, TRANSWEAP, EXTRA) \
+class SIDEPRFX##_##role##_##CAMO: baseclass##BWA_CAMO { \
+		faction=QUOTE(SIDEPRFX##_##CAMO); \
+		side= SIDE_TAG; \
+		scopeCurator = 2; \
+		scope = 2; \
+		editorSubcategory = QUOTE(EditorCat); \
+		displayName= QUOTE(roleDisplayName); \
+		crew=QUOTE(SIDEPRFX##_##CRW##_##CAMO); \
+		typicalCargo[]={QUOTE(SIDEPRFX##_##TCGO##_##CAMO)}; \
+		class TransportMagazines{TRANSMAG}; \
+		class TransportItems{TRANSITM}; \
+		class TransportWeapons{TRANSWEAP}; \
+		EXTRA \
+}
+'@
+$localMacros = @'
+// Local macros for this compat addon (VEHICULOFIX itself lives in addons\main\macros_vehicles.hpp).
+
+// One turret seat: gunner of the current side/camo, e.g. B_GAF2_Heli_Crew_flk
+#define GAF2_GUNNER(turret,GNR) class turret: turret { gunnerType = QUOTE(SIDEPRFX##_##GNR##_##CAMO); }
+
+// Eden category = the vehicle's own GAF2 faction (e.g. O_GAF2_trp), for source mods that set their
+// own editorCategory. The categories are declared in cfgEditorCategories.hpp.
+#define GAF2_EDCAT editorCategory = QUOTE(SIDEPRFX##_##CAMO);
+
+'@ + $xMacros + @'
+
+// Extra class lines per vehicle:
 '@
 
-function Add-GunnerDefine {
+function Add-ExtraDefine {
     $lm = Join-Path $dir 'macros_local.hpp'
     if (-not (Test-Path $lm)) {
         Write-File 'macros_local.hpp' $localMacros
@@ -213,7 +279,29 @@ function Add-GunnerDefine {
             Write-File 'config.cpp' $cfg
         }
     }
-    if ($gunnerDefine) { Write-File 'macros_local.hpp' ((Get-Content $lm -Raw).TrimEnd() + "`n" + $gunnerDefine) }
+    $lmText = (Get-Content $lm -Raw).TrimEnd()
+    # macros_local.hpp from an older script version
+    if ($lmText -notmatch 'define VEHICULOFIXX') { $lmText += "`n`n" + $xMacros }
+    if ($lmText -notmatch 'define GAF2_EDCAT') { $lmText += "`n#define GAF2_EDCAT editorCategory = QUOTE(SIDEPRFX##_##CAMO);" }
+    if ($extraDefine) { $lmText += "`n" + $extraDefine }
+    Write-File 'macros_local.hpp' $lmText
+    if ($resetCategory) { Add-EditorCategories }
+}
+
+# Eden categories named exactly like the GAF2 factions, with the same display names, so vehicles with
+# editorCategory = "<faction>" sort next to the faction's other vehicles (e.g. the GAF2 Puma).
+function Add-EditorCategories {
+    $fc = Get-Content (Join-Path $RepoRoot 'addons\main\cfgFactionClasses.hpp') -Raw
+    $cats = [regex]::Matches($fc, '(?s)class\s+(\w+)\s*\{.*?displayName\s*=\s*"([^"]*)"') | ForEach-Object {
+        "class $($_.Groups[1].Value)`n{`n    displayName = $(Q $_.Groups[2].Value);`n};"
+    }
+    Write-File 'cfgEditorCategories.hpp' ("// Generated from addons\main\cfgFactionClasses.hpp - same names as the GAF2 factions.`n" + ($cats -join "`n"))
+    $cfgPath = Join-Path $dir 'config.cpp'
+    $cfg = Get-Content $cfgPath -Raw
+    if ($cfg -notmatch 'cfgEditorCategories\.hpp') {
+        $cfg = $cfg -replace '(class CfgVehicles)', "class CfgEditorCategories`n{`n    #include ""cfgEditorCategories.hpp""`n};`n`n`$1"
+        Write-File 'config.cpp' $cfg
+    }
 }
 
 if (-not $Append) {
@@ -245,17 +333,18 @@ $sideIncludes
     #include "undef_const.hpp"
 };
 "@
-    Write-File 'cfgVehicles_basicDefines.hpp' "class $ParentClass;`n$baseClass"
+    Write-File 'cfgVehicles_basicDefines.hpp' ((($parentDecl | ForEach-Object { "class $_;" }) -join "`n") + "`n$baseClass")
     Write-File 'cfgVehicles_macrounits.hpp' @"
 // One line per vehicle. Each line is expanded for every side (macroveh_define_*.hpp) and camo (flk/mlt/trp).
-// VEHICULOFIX (classKey, displayName, crewRole, cargoRole, editorSubcategory, baseClass, magazines, items, weapons)
-// VEHICULOFIXG(... same ..., gunnerMacro)  - with GAF2 gunners, see macros_local.hpp
+// VEHICULOFIX  (classKey, displayName, crewRole, cargoRole, editorSubcategory, baseClass, magazines, items, weapons)
+// VEHICULOBWA3 (same, baseClass is a prefix: flk uses <prefix>Fleck, mlt/trp use <prefix>Tropen)
+// VEHICULOFIXX / VEHICULOCAMOX (... same ..., GAF2_EXTRA_<Key>)  - gunners / Eden category, see macros_local.hpp
 // editorSubcategory: EdSubcat_Planes, EdSubcat_Helicopters, HelisVanilla, PlanesVanilla ...
 
 $macroLine
 "@
-    Add-GunnerDefine
-    $req = @('gaf2_air') + $RequiredAddons
+    Add-ExtraDefine
+    $req = @('gaf2_main', 'gaf2_units') + $RequiredAddons   # GAF2 factions + crew units
     Write-File 'cfgPatches.hpp' @"
 class gaf2_$Addon
 {
@@ -280,11 +369,11 @@ else {
     if (-not (Test-Path $dir)) { throw "addons\$Addon does not exist yet - run without -Append first." }
     $bd = Join-Path $dir 'cfgVehicles_basicDefines.hpp'
     $bdText = Get-Content $bd -Raw
-    if ($bdText -match "class\s+$base\b") { throw "$base already exists in $Addon." }
-    if ($bdText -notmatch "class\s+$ParentClass\s*;") { $bdText = "class $ParentClass;`n" + $bdText }
+    if ($bdText -match "class\s+B_GAF2_${Key}_base(_Fleck)?\s*:") { throw "B_GAF2_${Key}_base already exists in $Addon." }
+    foreach ($p in $parentDecl) { if ($bdText -notmatch "class\s+$p\s*;") { $bdText = "class $p;`n" + $bdText } }
     Write-File 'cfgVehicles_basicDefines.hpp' ($bdText.TrimEnd() + "`n" + $baseClass)
     Write-File 'cfgVehicles_macrounits.hpp' ((Get-Content (Join-Path $dir 'cfgVehicles_macrounits.hpp') -Raw).TrimEnd() + "`n" + $macroLine)
-    Add-GunnerDefine
+    Add-ExtraDefine
 
     $cp = Join-Path $dir 'cfgPatches.hpp'
     $cpText = Get-Content $cp -Raw

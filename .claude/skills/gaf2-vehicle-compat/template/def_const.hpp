@@ -18,3 +18,11 @@ ITEM_XX(FirstAidKit,2); \
 ITEM_XX(ToolKit,1); \
 ITEM_XX(BWA3_Vector,1); \
 ITEM_XX(B_Parachute,2);
+
+// Armour (copied from addons/armored, Puma)
+#define ITMS_PUMA \
+ITEM_XX(FirstAidKit,10); \
+ITEM_XX(ToolKit,1); \
+ITEM_XX(ACE_DefusalKit,1); \
+ITEM_XX(ACE_EntrenchingTool,1); \
+ITEM_XX(ACE_Fortify,1);

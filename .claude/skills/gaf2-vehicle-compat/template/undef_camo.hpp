@@ -8,3 +8,5 @@
 #undef WEAPS_TIGER
 #undef MAGS_TIGER
 
+#undef MAGS_PUMA
+#undef WEAPS_PUMA

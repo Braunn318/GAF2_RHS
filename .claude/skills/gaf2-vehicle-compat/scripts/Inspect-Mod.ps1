@@ -100,7 +100,14 @@ foreach ($pbo in Get-ChildItem $addonsDir -Filter *.pbo) {
         }
     }
     if ($cfg.children.Contains('CfgVehicles')) {
-        foreach ($v in $cfg.children['CfgVehicles'].children.Values) { $v.pbo = $pbo.Name; $allVehicles[$v.name] = $v }
+        foreach ($v in $cfg.children['CfgVehicles'].children.Values) {
+            $old = $allVehicles[$v.name]
+            if (-not $old) { $v.pbo = $pbo.Name; $allVehicles[$v.name] = $v; continue }
+            # same class in another PBO (e.g. an optional patch): keep the first definition, only fill gaps
+            if (-not $old.parent) { $old.parent = $v.parent }
+            foreach ($k in $v.props.Keys) { if (-not $old.props.ContainsKey($k)) { $old.props[$k] = $v.props[$k] } }
+            foreach ($k in $v.children.Keys) { if (-not $old.children.Contains($k)) { $old.children[$k] = $v.children[$k] } }
+        }
     }
 }
 
@@ -129,7 +136,7 @@ Write-Host "=== Vehicle classes ===" -ForegroundColor Yellow
 $shown = 0
 foreach ($v in ($allVehicles.Values | Sort-Object { $_.name })) {
     $scope = Get-Inherited $v 'scope'
-    if (-not $All -and $v.props['scope'] -ne '2') { continue }
+    if (-not $All -and $scope -ne '2') { continue }                   # scope is often inherited from a sibling variant
     if ($Filter -and $v.name -notlike "*$Filter*" -and (Get-Inherited $v 'displayName') -notlike "*$Filter*") { continue }
     $shown++
     Write-Host ("`n{0} : {1}   [scope={2}, {3}]" -f $v.name, $v.parent, $scope, $v.pbo) -ForegroundColor Green
