@@ -1,0 +1,12 @@
+#undef CAMO
+#undef CLR_WEAP
+#undef CLR_MAG
+#undef BWA_CAMO
+#undef TRN_SD_MAG_HELI
+#undef TRN_SD_WEAP_HELI
+#undef TRN_SD_MAGS_TPLANE
+#undef WEAPS_TIGER
+#undef MAGS_TIGER
+
+#undef MAGS_PUMA
+#undef WEAPS_PUMA
