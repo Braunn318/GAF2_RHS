@@ -22,3 +22,9 @@ class CfgVehicles
 
     #include "undef_const.hpp"
 };
+
+// Boxer squads in the GAF2 "Mechanized" groups (gaf2_units is in requiredAddons, so this merges into it)
+class CfgGroups
+{
+    #include "cfgGroups.hpp"
+};
