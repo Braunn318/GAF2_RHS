@@ -10,6 +10,7 @@ class Crye_AVS_2;
     class gaf2_vest_Mobast_1_flk: Crye_AVS_1
 	{
 		author="Seb";
+		descriptionShort="$STR_A3_SP_AL_III";
 		displayName="[Flecktarn] MOBAST 1";
 		hiddenSelectionsTextures[]=
 		{
@@ -35,6 +36,7 @@ class Crye_AVS_2;
 	class gaf2_vest_Mobast_2_flk: Crye_AVS_1_1
 	{
 		author="Seb";
+		descriptionShort="$STR_A3_SP_AL_III";
 		displayName="[Flecktarn] MOBAST 2";
 		hiddenSelectionsTextures[]=
 		{
@@ -60,6 +62,7 @@ class Crye_AVS_2;
 	class gaf2_vest_Mobast_3_flk: Crye_AVS_1_2
 	{
 		author="Seb";
+		descriptionShort="$STR_A3_SP_AL_III";
 		displayName="[Flecktarn] MOBAST 3";
 		hiddenSelectionsTextures[]=
 		{
@@ -85,6 +88,7 @@ class Crye_AVS_2;
 	class gaf2_vest_Mobast_4_flk: Crye_AVS_1_3
 	{
 		author="Seb";
+		descriptionShort="$STR_A3_SP_AL_III";
 		displayName="[Flecktarn] MOBAST 4";
 		hiddenSelectionsTextures[]=
 		{
@@ -110,6 +114,7 @@ class Crye_AVS_2;
 	class gaf2_vest_Mobast_5_flk: Crye_AVS_2
 	{
 		author="Seb";
+		descriptionShort="$STR_A3_SP_AL_III";
 		displayName="[Flecktarn] MOBAST 5 Gunner";
 		hiddenSelectionsTextures[]=
 		{
@@ -137,6 +142,7 @@ class Crye_AVS_2;
     class gaf2_vest_Mobast_1_trp: Crye_AVS_1
 	{
 		author="Seb";
+		descriptionShort="$STR_A3_SP_AL_III";
 		displayName="[Tropentarn] MOBAST 1";
 		hiddenSelectionsTextures[]=
 		{
@@ -162,6 +168,7 @@ class Crye_AVS_2;
 	class gaf2_vest_Mobast_2_trp: Crye_AVS_1_1
 	{
 		author="Seb";
+		descriptionShort="$STR_A3_SP_AL_III";
 		displayName="[Tropentarn] MOBAST 2";
 		hiddenSelectionsTextures[]=
 		{
@@ -187,6 +194,7 @@ class Crye_AVS_2;
 	class gaf2_vest_Mobast_3_trp: Crye_AVS_1_2
 	{
 		author="Seb";
+		descriptionShort="$STR_A3_SP_AL_III";
 		displayName="[Tropentarn] MOBAST 3";
 		hiddenSelectionsTextures[]=
 		{
@@ -212,6 +220,7 @@ class Crye_AVS_2;
 	class gaf2_vest_Mobast_4_trp: Crye_AVS_1_3
 	{
 		author="Seb";
+		descriptionShort="$STR_A3_SP_AL_III";
 		displayName="[Tropentarn] MOBAST 4";
 		hiddenSelectionsTextures[]=
 		{
@@ -237,6 +246,7 @@ class Crye_AVS_2;
 	class gaf2_vest_Mobast_5_trp: Crye_AVS_2
 	{
 		author="Seb";
+		descriptionShort="$STR_A3_SP_AL_III";
 		displayName="[Tropentarn] MOBAST 5 Gunner";
 		hiddenSelectionsTextures[]=
 		{
@@ -262,6 +272,7 @@ class Crye_AVS_2;
 		    class gaf2_vest_Mobast_1_MLT: Crye_AVS_1
 	{
 		author="Seb";
+		descriptionShort="$STR_A3_SP_AL_III";
 		displayName="[Multitarn] MOBAST 1";
 		hiddenSelectionsTextures[]=
 		{
@@ -287,6 +298,7 @@ class Crye_AVS_2;
 	class gaf2_vest_Mobast_2_MLT: Crye_AVS_1_1
 	{
 		author="Seb";
+		descriptionShort="$STR_A3_SP_AL_III";
 		displayName="[Multitarn] MOBAST 2";
 		hiddenSelectionsTextures[]=
 		{
@@ -312,6 +324,7 @@ class Crye_AVS_2;
 	class gaf2_vest_Mobast_3_MLT: Crye_AVS_1_2
 	{
 		author="Seb";
+		descriptionShort="$STR_A3_SP_AL_III";
 		displayName="[Multitarn] MOBAST 3";
 		hiddenSelectionsTextures[]=
 		{
@@ -337,6 +350,7 @@ class Crye_AVS_2;
 	class gaf2_vest_Mobast_4_MLT: Crye_AVS_1_3
 	{
 		author="Seb";
+		descriptionShort="$STR_A3_SP_AL_III";
 		displayName="[Multitarn] MOBAST 4";
 		hiddenSelectionsTextures[]=
 		{
@@ -362,6 +376,7 @@ class Crye_AVS_2;
 	class gaf2_vest_Mobast_5mlt: Crye_AVS_2
 	{
 		author="Seb";
+		descriptionShort="$STR_A3_SP_AL_III";
 		displayName="[Multitarn] MOBAST 5 Gunner";
 		hiddenSelectionsTextures[]=
 		{

@@ -64,6 +64,7 @@ class cfgWeapons
 		scopeCurator=0;
 		allowedSlots[]={901};
 		displayName="AVS Assaulter #1 MC";
+		descriptionShort="$STR_A3_SP_AL_III"; // inventory tooltip; Vest_Camo_Base says "No armor". Chest 15 ~ vanilla Level III (16)
 		picture="avs\icons\AVSIcon.paa";
 		model="avs\AVS_1.p3d";
 		hiddenSelections[]=
