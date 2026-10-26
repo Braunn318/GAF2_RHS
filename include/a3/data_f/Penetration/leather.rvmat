@@ -1,0 +1,12 @@
+////////////////////////////////////////////////////////////////////
+//DeRap: Penetration\leather.rvmat
+//Produced from mikero's Dos Tools Dll version 9.98
+//https://mikero.bytex.digital/Downloads
+//'now' is Tue Sep 02 23:18:09 2025 : 'file' last modified on Tue Jul 02 16:59:59 2019
+////////////////////////////////////////////////////////////////////
+
+#define _ARMA_
+
+surfaceInfo = "A3\data_f\Penetration\leather.bisurf";
+diffuse[] = {0.75,0.8,0.3,1.0};
+ambient[] = {0.75,0.8,0.3,1.0};

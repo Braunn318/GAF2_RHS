@@ -1,0 +1,133 @@
+#define IDENT2 \
+QUOTE(Language_GAF2), \
+QUOTE(Head_Euro), \
+QUOTE(BWA3_G_Bundeswehr_default)
+
+#define IDENT3 \
+QUOTE(Language_GAF2), \
+QUOTE(Head_Euro), \
+QUOTE(G_NATO_Diver)
+
+#define HL_BER \
+QUOTE(BWA3_Beret_Falli), \
+0.17, \
+QUOTE(BWA3_Beret_HFlieger), \
+0.17, \
+QUOTE(BWA3_Beret_Jaeger), \
+0.17, \
+QUOTE(BWA3_Beret_PzAufkl), \
+0.17, \
+QUOTE(BWA3_Beret_PzGren), \
+0.17, \
+QUOTE(BWA3_Beret_Pz), \
+0.17
+#define UNIFORMDIOFF QUOTE(gaf2_Unif_P_Officer)
+#define VESTBLT1 QUOTE(V_Rangemaster_belt)
+#define VESTHVZ QUOTE(V_DeckCrew_yellow_F)
+
+#define HELMETBER QUOTE(BWA3_Beret_Falli)
+#define HELMETHELICREW QUOTE(BWA3_CrewHelmet_NH90)
+#define HELMETPLTNH90 QUOTE(BWA3_TopOwl_nvg)
+#define HELMETPLT QUOTE(BWA3_Knighthelm)
+#define HELMETRMCAP QUOTE(H_Cap_headphones)
+
+#define BAG_Parachute QUOTE(B_Parachute)
+
+#define BAG_M2_GUN QUOTE(RHS_M2_Gun_Bag)
+#define BAG_M2_Tripod QUOTE(RHS_M2_Tripod_Bag)
+#define BAG_M2_Minitripod QUOTE(RHS_M2_MiniTripod_Bag)
+
+#define BAG_UAV QUOTE(B_UAV_01_backpack_F)
+#define BAG_UAV6 QUOTE(B_UAV_06_backpack_F)
+#define BAG_UAV6_MED QUOTE(B_UAV_06_medical_backpack_F)
+
+#define BAG_MK6 QUOTE(rhs_M252_Gun_Bag)
+#define BAG_MK6_Bipod QUOTE(rhs_M252_Bipod_Bag)
+
+#define WEAPON_SUB_MP7 QUOTE(BWA3_MP7_RSAS_pointer)
+#define WEAPON_DMR QUOTE(GAF2_G28_DMR)
+#define WEAPON_MG3 QUOTE(GAF2_MG3_bipod)
+#define WEAPON_MG4 QUOTE(GAF2_MG4_G33)
+#define WEAPON_G29 QUOTE(BWA3_G29_M5Xi_Tremor3_bipod)
+#define WEAPON_PZF3 QUOTE(BWA3_PzF3)
+#define WEAPON_MRAWS QUOTE(launch_MRAWS_green_F)
+#define WEAPON_RGW90 QUOTE(BWA3_RGW90)
+#define WEAPON_AA QUOTE(BWA3_Fliegerfaust)
+
+#define MAG_RIFLE_G27 QUOTE(BWA3_20Rnd_762x51_G28)
+#define MAG_SUB_MP7 QUOTE(BWA3_20Rnd_46x30_MP7)
+#define MAG_DMR QUOTE(BWA3_20Rnd_762x51_G28)
+#define MAG_G29 QUOTE(BWA3_10Rnd_86x70_G29)
+#define MAG_MG3 QUOTE(BWA3_120Rnd_762x51)
+#define MAG_MG4 QUOTE(BWA3_200Rnd_556x45)
+#define MAG_MG5 QUOTE(BWA3_120Rnd_762x51)
+#define MAG_PZF3 QUOTE(BWA3_PzF3_Tandem)
+#define MAG_MRAWS QUOTE(MRAWS_HEAT_F)
+#define MAG_RGW90 QUOTE(BWA3_RGW90_HH)
+#define MAG_AA QUOTE(BWA3_Fliegerfaust_Mag)
+
+#define MAG_RIFLE_G27_8 \
+QUOTE(BWA3_20Rnd_762x51_G28), \
+QUOTE(BWA3_20Rnd_762x51_G28), \
+QUOTE(BWA3_20Rnd_762x51_G28), \
+QUOTE(BWA3_20Rnd_762x51_G28), \
+QUOTE(BWA3_20Rnd_762x51_G28), \
+QUOTE(BWA3_20Rnd_762x51_G28), \
+QUOTE(BWA3_20Rnd_762x51_G28), \
+QUOTE(BWA3_20Rnd_762x51_G28)
+
+#define MAG_RIFLE_G27_8_GL \
+QUOTE(BWA3_20Rnd_762x51_G28), \
+QUOTE(BWA3_20Rnd_762x51_G28), \
+QUOTE(BWA3_20Rnd_762x51_G28), \
+QUOTE(BWA3_20Rnd_762x51_G28), \
+QUOTE(BWA3_20Rnd_762x51_G28), \
+QUOTE(BWA3_20Rnd_762x51_G28), \
+QUOTE(BWA3_20Rnd_762x51_G28), \
+QUOTE(BWA3_20Rnd_762x51_G28), \
+QUOTE(rhs_mag_M433_HEDP), \
+QUOTE(rhs_mag_M433_HEDP), \
+QUOTE(rhs_mag_M433_HEDP), \
+QUOTE(rhs_mag_M433_HEDP), \
+QUOTE(rhs_mag_M433_HEDP), \
+QUOTE(rhs_mag_M433_HEDP), \
+QUOTE(rhs_mag_M433_HEDP), \
+QUOTE(rhs_mag_M433_HEDP), \
+QUOTE(1Rnd_Smoke_Grenade_shell), \
+QUOTE(1Rnd_Smoke_Grenade_shell), \
+QUOTE(1Rnd_Smoke_Grenade_shell)
+
+#define MAG_DMR_8 \
+QUOTE(BWA3_20Rnd_762x51_G28), \
+QUOTE(BWA3_20Rnd_762x51_G28), \
+QUOTE(BWA3_20Rnd_762x51_G28), \
+QUOTE(BWA3_20Rnd_762x51_G28), \
+QUOTE(BWA3_20Rnd_762x51_G28), \
+QUOTE(BWA3_20Rnd_762x51_G28), \
+QUOTE(BWA3_20Rnd_762x51_G28), \
+QUOTE(BWA3_20Rnd_762x51_G28)
+
+#define MAG_G29_8 \
+QUOTE(BWA3_10Rnd_86x70_G29), \
+QUOTE(BWA3_10Rnd_86x70_G29), \
+QUOTE(BWA3_10Rnd_86x70_G29), \
+QUOTE(BWA3_10Rnd_86x70_G29), \
+QUOTE(BWA3_10Rnd_86x70_G29), \
+QUOTE(BWA3_10Rnd_86x70_G29), \
+QUOTE(BWA3_10Rnd_86x70_G29), \
+QUOTE(BWA3_10Rnd_86x70_G29)
+
+#define MAG_SUB_MP7_3 \
+QUOTE(BWA3_20Rnd_46x30_MP7), \
+QUOTE(BWA3_20Rnd_46x30_MP7), \
+QUOTE(BWA3_20Rnd_46x30_MP7)
+
+#define MAG_G82_6 \
+QUOTE(rhsusf_mag_10Rnd_STD_50BMG_mk211), \
+QUOTE(rhsusf_mag_10Rnd_STD_50BMG_mk211), \
+QUOTE(rhsusf_mag_10Rnd_STD_50BMG_mk211), \
+QUOTE(rhsusf_mag_10Rnd_STD_50BMG_mk211), \
+QUOTE(rhsusf_mag_10Rnd_STD_50BMG_mk211), \
+QUOTE(rhsusf_mag_10Rnd_STD_50BMG_mk211)
+
+

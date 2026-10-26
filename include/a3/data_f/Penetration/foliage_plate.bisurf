@@ -1,0 +1,12 @@
+Density=7;
+Thickness=5;
+rough=0.1;
+dust=0;
+bulletPenetrabilityWithThickness=32000;
+soundEnviron=Empty;
+isWater=false;
+friction=0.7;
+restitution=0.4;
+impact = hitFoliage;
+soundHit = Foliage;
+deflection = 0.1;

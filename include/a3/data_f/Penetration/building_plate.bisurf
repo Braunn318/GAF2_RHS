@@ -1,0 +1,12 @@
+Density=1800;
+Thickness=80;
+rough=0.1;
+dust=0;
+bulletPenetrabilityWithThickness=107;
+soundEnviron=Empty;
+isWater=false;
+friction=0.9;
+restitution=0;
+impact = hitBuilding;
+soundHit = Building;
+deflection = 0.9;

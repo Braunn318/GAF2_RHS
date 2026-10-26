@@ -1,0 +1,159 @@
+name = "German Armed Forces [RHS]"
+author = "braun"
+mainprefix = "z"
+prefix = "gaf2"
+[version]
+major = 1
+minor = 0
+patch = 0
+git_hash = 0
+[files]
+include = ["mod.cpp", "meta.cpp", "logo_ca.paa","**/*.p3d","**/*.paa","**/*.rvmat","**/*.cpp","**/*.cfg",]
+[exclude]
+glob = ["*.psd", "*.tga", "*.png", "*.bak","*.hpp"]
+
+[[addons]]
+name = "air"
+path = "addons/air"
+include = [
+    "**/*.p3d",
+    "**/*.paa",
+    "**/*.rvmat",
+    "**/*.cpp",
+            ]
+[[addons]]
+name = "air_ec135_compat"
+path = "addons/air_ec135_compat"
+include = [
+    "**/*.p3d",
+    "**/*.paa",
+    "**/*.rvmat",
+    "**/*.cpp",
+            ]
+[[addons]]
+name = "air_f35_compat"
+path = "addons/air_f35_compat"
+include = [
+    "**/*.p3d",
+    "**/*.paa",
+    "**/*.rvmat",
+    "**/*.cpp",
+            ]
+[[addons]]
+name = "armored"
+path = "addons/armored"
+include = [
+    "**/*.p3d",
+    "**/*.paa",
+    "**/*.rvmat",
+    "**/*.cpp",
+            ]
+[[addons]]
+name = "cars"
+path = "addons/cars"
+include = [
+    "**/*.p3d",
+    "**/*.paa",
+    "**/*.rvmat",
+    "**/*.cpp",
+            ]
+[[addons]]
+name = "gear"
+path = "addons/gear"
+include = [
+    "**/*.p3d",
+    "**/*.paa",
+    "**/*.rvmat",
+    "**/*.cpp",
+            ]
+
+[[addons]]
+name = "avs"
+prefix = "avs"
+path = "."
+include = [
+    "**/*.p3d",
+    "**/*.paa",
+    "**/*.rvmat",
+    "**/*.cpp",
+            ]
+[[addons]]
+name = "avs_compat"
+prefix = "avs_compat"
+path = "."
+include = [
+    "**/*.p3d",
+    "**/*.paa",
+    "**/*.rvmat",
+    "**/*.cpp",
+            ]
+[[addons]]
+name = "gx_compat"
+path = "addons/gx_compat"
+include = [
+    "**/*.p3d",
+    "**/*.paa",
+    "**/*.rvmat",
+    "**/*.cpp",
+            ]
+[[addons]]
+name = "main"
+path = "addons/main"
+include = [
+    "**/*.p3d",
+    "**/*.paa",
+    "**/*.rvmat",
+    "**/*.cpp",
+            ]
+[[addons]]
+name = "others"
+path = "addons/others"
+include = [
+    "**/*.p3d",
+    "**/*.paa",
+    "**/*.rvmat",
+    "**/*.cpp",
+            ]
+[[addons]]
+name = "units"
+path = "addons/units"
+include = [
+    "**/*.p3d",
+    "**/*.paa",
+    "**/*.rvmat",
+    "**/*.cpp",
+            ]
+
+[[addons]]
+name = "hk146_niarms_compat"
+path = "addons/hk146_niarms_compat"
+include = [
+    "**/*.p3d",
+    "**/*.paa",
+    "**/*.rvmat",
+    "**/*.cpp",
+            ]
+
+[[addons]]
+name = "g36_niarms_compat"
+path = "addons/g36_niarms_compat"
+include = [
+    "**/*.p3d",
+    "**/*.paa",
+    "**/*.rvmat",
+    "**/*.cpp",
+            ]
+
+[hemtt.build]
+pdrive = "require"
+texheaders = true
+compress_textures = true
+[hemtt.check]
+pdrive = "ignore"
+[binarize]
+enabled = true
+models = true
+materials = true
+textures = true
+exclude = []
+

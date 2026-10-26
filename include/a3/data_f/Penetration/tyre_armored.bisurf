@@ -1,0 +1,11 @@
+Density=4000;
+rough=0.1;
+dust=0;
+bulletPenetrability=48;
+soundEnviron=Empty;
+isWater=false;
+friction=0.9;
+restitution=0.5;
+impact = hitRubber;
+soundHit = Rubber;
+deflection = 0.4;

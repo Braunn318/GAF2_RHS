@@ -1,0 +1,12 @@
+Density=640;
+rough=0.1;
+dust=0;
+bulletPenetrability=300;
+soundEnviron=Empty;
+isWater=false;
+friction=0.7;
+restitution=0.4;
+impact = hitWood;
+soundHit = Wood;
+deflection = 0.5;
+transparency = 0;

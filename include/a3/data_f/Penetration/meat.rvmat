@@ -1,0 +1,10 @@
+////////////////////////////////////////////////////////////////////
+//DeRap: Penetration\meat.rvmat
+//Produced from mikero's Dos Tools Dll version 9.98
+//https://mikero.bytex.digital/Downloads
+//'now' is Tue Sep 02 23:18:09 2025 : 'file' last modified on Tue Jul 02 16:59:59 2019
+////////////////////////////////////////////////////////////////////
+
+#define _ARMA_
+
+surfaceInfo = "A3\data_f\Penetration\meat.bisurf";

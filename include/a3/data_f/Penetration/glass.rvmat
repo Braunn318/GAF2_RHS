@@ -1,0 +1,18 @@
+////////////////////////////////////////////////////////////////////
+//DeRap: Penetration\glass.rvmat
+//Produced from mikero's Dos Tools Dll version 9.98
+//https://mikero.bytex.digital/Downloads
+//'now' is Tue Sep 02 23:18:08 2025 : 'file' last modified on Tue Jul 02 16:59:59 2019
+////////////////////////////////////////////////////////////////////
+
+#define _ARMA_
+
+surfaceInfo = "A3\data_f\Penetration\glass.bisurf";
+ambient[] = {0.75,0.75,0.75,1};
+diffuse[] = {0.75,0.75,0.75,1};
+forcedDiffuse[] = {0,0,0,0};
+emmisive[] = {0,0,0,1};
+specular[] = {0,0,0,1};
+specularPower = 1;
+PixelShaderID = "Normal";
+VertexShaderID = "Basic";

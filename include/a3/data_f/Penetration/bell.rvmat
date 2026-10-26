@@ -1,0 +1,18 @@
+////////////////////////////////////////////////////////////////////
+//DeRap: Penetration\bell.rvmat
+//Produced from mikero's Dos Tools Dll version 9.98
+//https://mikero.bytex.digital/Downloads
+//'now' is Tue Sep 02 23:18:06 2025 : 'file' last modified on Tue Jul 02 16:59:59 2019
+////////////////////////////////////////////////////////////////////
+
+#define _ARMA_
+
+surfaceInfo = "A3\data_f\Penetration\bell.bisurf";
+ambient[] = {0.7,0.8,0.78,1.0};
+diffuse[] = {0.7,0.8,0.78,1.0};
+forcedDiffuse[] = {0,0,0,0};
+emmisive[] = {0,0,0,1};
+specular[] = {0,0,0,1};
+specularPower = 1;
+PixelShaderID = "Normal";
+VertexShaderID = "Basic";

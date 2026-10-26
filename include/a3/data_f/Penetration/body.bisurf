@@ -1,0 +1,11 @@
+Density=985;
+rough=0.1;
+dust=0;
+friction=0.9;
+restitution=0.5;
+bulletPenetrability=195;
+soundEnviron=Empty;
+isWater=false;
+impact = hitMan;
+soundHit = Body;
+deflection = 0.05;

@@ -1,0 +1,12 @@
+density=0;
+thickness=0;
+rough=0;
+dust=0;
+bulletPenetrability=999;
+soundEnviron=Empty;
+isWater=false;
+friction=0;
+restitution=0;
+impact = hitDefault;
+soundHit = Default;
+deflection = 0;

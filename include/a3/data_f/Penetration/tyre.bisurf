@@ -1,0 +1,11 @@
+Density=320;
+rough=0.1;
+dust=0;
+bulletPenetrability=300;
+soundEnviron=Empty;
+isWater=false;
+friction=0.9;
+restitution=0.5;
+impact = hitTyre;
+soundHit = Tyre;
+deflection = 0.2;

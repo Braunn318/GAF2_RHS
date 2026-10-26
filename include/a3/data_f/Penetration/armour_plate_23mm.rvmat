@@ -1,0 +1,18 @@
+////////////////////////////////////////////////////////////////////
+//DeRap: Penetration\armour_plate_23mm.rvmat
+//Produced from mikero's Dos Tools Dll version 9.98
+//https://mikero.bytex.digital/Downloads
+//'now' is Tue Sep 02 23:18:05 2025 : 'file' last modified on Tue Jul 02 16:59:59 2019
+////////////////////////////////////////////////////////////////////
+
+#define _ARMA_
+
+surfaceInfo = "A3\data_f\Penetration\armour_plate_23mm.bisurf";
+ambient[] = {"0.32*(5.5/sqrt(23))","0.345*(5.5/sqrt(23))","0.55*(5.5/sqrt(23))",1};
+diffuse[] = {"0.32*(5.5/sqrt(23))","0.345*(5.5/sqrt(23))","0.55*(5.5/sqrt(23))",1};
+forcedDiffuse[] = {0,0,0,0};
+emmisive[] = {0,0,0,1};
+specular[] = {0,0,0,1};
+specularPower = 1;
+PixelShaderID = "Normal";
+VertexShaderID = "Basic";

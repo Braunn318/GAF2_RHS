@@ -1,0 +1,9 @@
+name = "Bundeswehr complete - German Armed Forces";
+description = "Armed forces of Germany";
+author = "braun";
+picture = "z\gaf2\addons\main\data\picture.paa";
+logoSmall = "z\gaf2\addons\main\data\logoSmall.paa";
+logo = "z\gaf2\addons\main\data\logo.paa";
+logoOver = "z\gaf2\addons\main\data\logoOver.paa";
+tooltipOwned = "Bundeswehr Complete";
+overview = "Experience modern German Army. This is RHS version. This addon is complete as possibly can.";

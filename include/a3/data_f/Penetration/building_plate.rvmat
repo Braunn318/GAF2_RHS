@@ -1,0 +1,18 @@
+////////////////////////////////////////////////////////////////////
+//DeRap: Penetration\building_plate.rvmat
+//Produced from mikero's Dos Tools Dll version 9.98
+//https://mikero.bytex.digital/Downloads
+//'now' is Tue Sep 02 23:18:06 2025 : 'file' last modified on Tue Jul 02 16:59:59 2019
+////////////////////////////////////////////////////////////////////
+
+#define _ARMA_
+
+surfaceInfo = "A3\data_f\Penetration\building_plate.bisurf";
+ambient[] = {0.662745,0.278431,0.278431,1.0};
+diffuse[] = {0.662745,0.278431,0.278431,1.0};
+forcedDiffuse[] = {0,0,0,0};
+emmisive[] = {0,0,0,1};
+specular[] = {0,0,0,1};
+specularPower = 1;
+PixelShaderID = "Normal";
+VertexShaderID = "Basic";

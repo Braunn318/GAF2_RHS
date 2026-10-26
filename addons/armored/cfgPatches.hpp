@@ -1,0 +1,83 @@
+class gaf2_armored
+{
+  units[] = 
+  {
+    "B_GAF2_IFV_Puma_flk",
+    "B_GAF2_MBT_Leopard_2_flk",
+    "B_GAF2_PzH2000_flk",
+    "B_GAF2_Skorpion_flk",
+    "B_GAF2_Scorcher_flk",
+    "B_GAF2_MBT_01_flk",
+    "B_GAF2_AA_flk",
+    "B_GAF2_IFV_Puma_trp",
+    "B_GAF2_MBT_Leopard_2_trp",
+    "B_GAF2_PzH2000_trp",
+    "B_GAF2_Skorpion_trp",
+    "B_GAF2_Scorcher_trp",
+    "B_GAF2_MBT_01_trp",
+    "B_GAF2_AA_trp",
+    "B_GAF2_IFV_Puma_mlt",
+    "B_GAF2_MBT_Leopard_2_mlt",
+    "B_GAF2_PzH2000_mlt",
+    "B_GAF2_Skorpion_mlt",
+    "B_GAF2_Scorcher_mlt",
+    "B_GAF2_MBT_01_mlt",
+    "B_GAF2_AA_mlt",
+    "I_GAF2_IFV_Puma_flk",
+    "I_GAF2_MBT_Leopard_2_flk",
+    "I_GAF2_PzH2000_flk",
+    "I_GAF2_Skorpion_flk",
+    "I_GAF2_Scorcher_flk",
+    "I_GAF2_MBT_01_flk",
+    "I_GAF2_AA_flk",
+    "I_GAF2_IFV_Puma_trp",
+    "I_GAF2_MBT_Leopard_2_trp",
+    "I_GAF2_PzH2000_trp",
+    "I_GAF2_Skorpion_trp",
+    "I_GAF2_Scorcher_trp",
+    "I_GAF2_MBT_01_trp",
+    "I_GAF2_AA_trp",
+    "I_GAF2_IFV_Puma_mlt",
+    "I_GAF2_MBT_Leopard_2_mlt",
+    "I_GAF2_PzH2000_mlt",
+    "I_GAF2_Skorpion_mlt",
+    "I_GAF2_Scorcher_mlt",
+    "I_GAF2_MBT_01_mlt",
+    "I_GAF2_AA_mlt",
+    "O_GAF2_IFV_Puma_flk",
+    "O_GAF2_MBT_Leopard_2_flk",
+    "O_GAF2_PzH2000_flk",
+    "O_GAF2_Skorpion_flk",
+    "O_GAF2_Scorcher_flk",
+    "O_GAF2_MBT_01_flk",
+    "O_GAF2_AA_flk",
+    "O_GAF2_IFV_Puma_trp",
+    "O_GAF2_MBT_Leopard_2_trp",
+    "O_GAF2_PzH2000_trp",
+    "O_GAF2_Skorpion_trp",
+    "O_GAF2_Scorcher_trp",
+    "O_GAF2_MBT_01_trp",
+    "O_GAF2_AA_trp",
+    "O_GAF2_IFV_Puma_mlt",
+    "O_GAF2_MBT_Leopard_2_mlt",
+    "O_GAF2_PzH2000_mlt",
+    "O_GAF2_Skorpion_mlt",
+    "O_GAF2_Scorcher_mlt",
+    "O_GAF2_MBT_01_mlt",
+    "O_GAF2_AA_mlt"
+    };
+  weapons[]= {};
+  requiredVersion=2.20;
+  requiredAddons[] = {
+      "cba_xeh",
+      "gaf2_main",
+      "gaf2_units",
+      "A3_Armor_F_Beta",
+      "bwa3_puma",
+      "bwa3_leopard2",
+      "A3_Armor_F_Exp_MBT_01"
+
+      };
+	skipWhenMissingDependencies = 0;
+  author = "braun";
+};

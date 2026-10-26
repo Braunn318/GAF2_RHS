@@ -1,0 +1,86 @@
+////////////////////////////////////////////////////////////////////
+//DeRap: OPFOR\Data\clothingskin.rvmat
+//Produced from mikero's Dos Tools Dll version 9.98
+//https://mikero.bytex.digital/Downloads
+//'now' is Tue Sep 02 23:16:36 2025 : 'file' last modified on Fri Jul 12 12:10:45 2019
+////////////////////////////////////////////////////////////////////
+
+#define _ARMA_
+
+class StageTI
+{
+	texture = "#(argb,8,8,3)color(1,1,1,1,CO)";
+};
+ambient[] = {1.2,1.2,1.1,0.8};
+diffuse[] = {0.8,0.8,0.8,1.0};
+forcedDiffuse[] = {0.12,0.45,0.4,0.5};
+emmisive[] = {0.8,0.35,0.65,0.93};
+specular[] = {0.48,0.48,0.48,1.5};
+specularPower = 135;
+PixelShaderID = "Skin";
+VertexShaderID = "Skin";
+class Stage1
+{
+	texture = "a3\characters_f\opfor\data\clothing_nohq.paa";
+	uvSource = "tex";
+	class uvTransform
+	{
+		aside[] = {1.0,0.0,0.0};
+		up[] = {0.0,1.0,0.0};
+		dir[] = {0.0,0.0,0.0};
+		pos[] = {0.0,0.0,0.0};
+	};
+};
+class Stage2
+{
+	texture = "#(argb,8,8,3)color(0,0,0,0,MC)";
+	uvSource = "tex";
+	class uvTransform
+	{
+		aside[] = {1.0,0.0,0.0};
+		up[] = {0.0,1.0,0.0};
+		dir[] = {0.0,0.0,0.0};
+		pos[] = {0.0,0.0,0.0};
+	};
+};
+class Stage3
+{
+	texture = "a3\characters_f\opfor\data\clothing_co.paa";
+	uvSource = "tex";
+	class uvTransform
+	{
+		aside[] = {1.0,0.0,0.0};
+		up[] = {0.0,1.0,0.0};
+		dir[] = {0.0,0.0,0.0};
+		pos[] = {0.0,0.0,0.0};
+	};
+};
+class Stage4
+{
+	texture = "#(argb,8,8,3)color(1,1,1,1,AS)";
+	uvSource = "tex";
+	class uvTransform
+	{
+		aside[] = {1.0,0.0,0.0};
+		up[] = {0.0,1.0,0.0};
+		dir[] = {0.0,0.0,0.0};
+		pos[] = {0.0,0.0,0.0};
+	};
+};
+class Stage5
+{
+	texture = "a3\characters_f\opfor\data\clothing_smdi.paa";
+	uvSource = "tex";
+	class uvTransform
+	{
+		aside[] = {1.0,0.0,0.0};
+		up[] = {0.0,1.0,0.0};
+		dir[] = {0.0,0.0,0.0};
+		pos[] = {0.0,0.0,0.0};
+	};
+};
+class Stage6
+{
+	texture = "#(ai,64,1,1)fresnel(0.2,0.8)";
+	uvSource = "none";
+};
